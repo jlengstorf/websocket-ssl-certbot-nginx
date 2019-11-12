@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>WebSockets Over SSL</title>
+    <style></style>
+  </head>
+  <body>
+    <h1>WebSockets Using SSL</h1>
+    <p>
+      This is a Node app using the <kbd>ws</kbd> module to serve an app over
+      plain <kbd>http</kbd>. It’s hosted on a Digital Ocean droplet (Ubuntu
+      18.x) using NGINX as a reverse proxy for both the HTTP and WS traffic.
+    </p>
+    <pre id="message-log"></pre>
+    <script>
+      (function() {
+        // on http:// we need to use ws:// but over SSL we need to use wss://
+        // this is kind of a hack to make sure we’re always matching protocols
+        const ws = new WebSocket(
+          `${location.protocol.replace("http", "ws")}//${location.host}`
+        );
+        const log = document.getElementById("message-log");
+
+        ws.onerror = () => {
+          console.error("WebSocket error!");
+        };
+
+        ws.onopen = () => {
+          console.log("WebSocket connection established");
+        };
+
+        ws.onclose = () => {
+          console.log("WebSocket connection closed");
+        };
+
+        ws.onmessage = event => {
+          const msg = JSON.parse(event.data);
+          log.append(`${new Date().toISOString()}: ${msg}\n`);
+        };
+      })();
+    </script>
+  </body>
+</html>

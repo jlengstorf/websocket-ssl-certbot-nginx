@@ -1,0 +1,16 @@
+{
+  "name": "websocket-ssl-certbot-nginx",
+  "version": "0.0.1",
+  "description": "Example app to show how to set up WebSocket apps over SSL using NGINX and certbot from Let’s Encrypt.",
+  "main": "index.js",
+  "repository": "https://github.com/jlengstorf/websocket-ssl-certbot-nginx.git",
+  "author": "Jason Lengstorf <jason@lengstorf.com> (https://lengstorf.com)",
+  "license": "MIT",
+  "scripts": {
+    "start": "node server"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "ws": "^7.2.0"
+  }
+}
